@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using BIIT_HR.Models;
+//hello
 namespace BIIT_HR.Controllers
 {
     public class CriteriaController : ApiController
@@ -12,6 +13,7 @@ namespace BIIT_HR.Controllers
         BIIT_HREntities6 db = new BIIT_HREntities6();
 
         [HttpGet]
+
         public HttpResponseMessage getCriteria(int cri_id)
         {
             var criteriaV = db.Criteria.Where(e => e.cri_id == cri_id);
