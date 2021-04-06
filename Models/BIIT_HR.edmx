@@ -1,0 +1,428 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BIIT_HRModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="admin_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="ad_password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Attendance">
+          <Key>
+            <PropertyRef Name="attendance_id" />
+          </Key>
+          <Property Name="attendance_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status" Type="text" />
+          <Property Name="date" Type="date" />
+          <Property Name="emp_id" Type="int" Nullable="false" />
+          <Property Name="csv" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Criteria">
+          <Key>
+            <PropertyRef Name="cri_id" />
+          </Key>
+          <Property Name="cri_id" Type="int" Nullable="false" />
+          <Property Name="cri_total_leave" Type="float" />
+          <Property Name="cri_sick_leave" Type="int" />
+          <Property Name="cri_earned_leave" Type="int" />
+          <Property Name="cri_casual_leave" Type="int" />
+          <Property Name="cri_short_leave" Type="float" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="cnic" Type="varchar" MaxLength="50" />
+          <Property Name="contact_no" Type="nchar" MaxLength="20" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="date" Type="date" />
+          <Property Name="designation" Type="varchar" MaxLength="50" />
+          <Property Name="picture" Type="varbinary(max)" />
+          <Property Name="leave_status" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="EmployeeLeave">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="int" Nullable="false" />
+          <Property Name="total_leaves" Type="float" />
+          <Property Name="sick_leave" Type="int" />
+          <Property Name="earned_leave" Type="int" />
+          <Property Name="casual_leave" Type="int" />
+          <Property Name="short_leave" Type="float" />
+          <Property Name="remaining_leaves" Type="float" />
+        </EntityType>
+        <EntityType Name="Hod">
+          <Key>
+            <PropertyRef Name="hod_id" />
+          </Key>
+          <Property Name="hod_id" Type="int" Nullable="false" />
+          <Property Name="hod_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="hod_password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Holiday">
+          <Key>
+            <PropertyRef Name="h_id" />
+          </Key>
+          <Property Name="h_id" Type="int" Nullable="false" />
+          <Property Name="h_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="hajj_from" Type="date" />
+          <Property Name="hajj_to" Type="date" />
+          <Property Name="hajj_total" Type="nchar" MaxLength="10" />
+          <Property Name="hajj" Type="int" />
+          <Property Name="EidF" Type="int" />
+          <Property Name="EidAdha" Type="int" />
+          <Property Name="PakDay" Type="int" />
+          <Property Name="AzadiDay" Type="int" />
+          <Property Name="eid_from" Type="date" />
+          <Property Name="eid_to" Type="date" />
+          <Property Name="eidAd_from" Type="date" />
+          <Property Name="eidAd_to" Type="date" />
+        </EntityType>
+        <EntityType Name="Leave">
+          <Key>
+            <PropertyRef Name="leave_id" />
+          </Key>
+          <Property Name="leave_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="leave_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="date_from" Type="date" />
+          <Property Name="date_to" Type="date" />
+          <Property Name="leave_description" Type="nvarchar(max)" />
+          <Property Name="emp_id" Type="int" Nullable="false" />
+          <Property Name="leave_status" Type="nchar" MaxLength="10" />
+          <Property Name="day_from" Type="nvarchar" MaxLength="50" />
+          <Property Name="day_to" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Attendance_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="emp_id" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Leave_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Leave" Type="Self.Leave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="emp_id" />
+            </Principal>
+            <Dependent Role="Leave">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BIIT_HRModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Criteria" EntityType="Self.Criteria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeLeave" EntityType="Self.EmployeeLeave" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hod" EntityType="Self.Hod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Holiday" EntityType="Self.Holiday" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Leave" EntityType="Self.Leave" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Attendance_Employee" Association="Self.FK_Attendance_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Attendance" EntitySet="Attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Leave_Employee" Association="Self.FK_Leave_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Leave" EntitySet="Leave" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BIIT_HRModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="admin_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ad_password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Attendance">
+          <Key>
+            <PropertyRef Name="attendance_id" />
+          </Key>
+          <Property Name="attendance_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="emp_id" Type="Int32" Nullable="false" />
+          <Property Name="csv" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Attendance_Employee" FromRole="Attendance" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Criterion">
+          <Key>
+            <PropertyRef Name="cri_id" />
+          </Key>
+          <Property Name="cri_id" Type="Int32" Nullable="false" />
+          <Property Name="cri_total_leave" Type="Double" />
+          <Property Name="cri_sick_leave" Type="Int32" />
+          <Property Name="cri_earned_leave" Type="Int32" />
+          <Property Name="cri_casual_leave" Type="Int32" />
+          <Property Name="cri_short_leave" Type="Double" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cnic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="contact_no" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Attendances" Relationship="Self.FK_Attendance_Employee" FromRole="Employee" ToRole="Attendance" />
+          <NavigationProperty Name="Leaves" Relationship="Self.FK_Leave_Employee" FromRole="Employee" ToRole="Leave" />
+          <Property Name="leave_status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EmployeeLeave">
+          <Key>
+            <PropertyRef Name="emp_id" />
+          </Key>
+          <Property Name="emp_id" Type="Int32" Nullable="false" />
+          <Property Name="total_leaves" Type="Double" />
+          <Property Name="sick_leave" Type="Int32" />
+          <Property Name="earned_leave" Type="Int32" />
+          <Property Name="casual_leave" Type="Int32" />
+          <Property Name="short_leave" Type="Double" />
+          <Property Name="remaining_leaves" Type="Double" />
+        </EntityType>
+        <EntityType Name="Hod">
+          <Key>
+            <PropertyRef Name="hod_id" />
+          </Key>
+          <Property Name="hod_id" Type="Int32" Nullable="false" />
+          <Property Name="hod_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hod_password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Leave">
+          <Key>
+            <PropertyRef Name="leave_id" />
+          </Key>
+          <Property Name="leave_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="leave_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="date_from" Type="DateTime" Precision="0" />
+          <Property Name="date_to" Type="DateTime" Precision="0" />
+          <Property Name="leave_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="emp_id" Type="Int32" Nullable="false" />
+          <Property Name="leave_status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="day_from" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="day_to" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Leave_Employee" FromRole="Leave" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_Attendance_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="emp_id" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Leave_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Leave" Type="Self.Leave" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="emp_id" />
+            </Principal>
+            <Dependent Role="Leave">
+              <PropertyRef Name="emp_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BIIT_HREntities6" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Attendances" EntityType="Self.Attendance" />
+          <EntitySet Name="Criteria" EntityType="Self.Criterion" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="EmployeeLeaves" EntityType="Self.EmployeeLeave" />
+          <EntitySet Name="Hods" EntityType="Self.Hod" />
+          <EntitySet Name="Leaves" EntityType="Self.Leave" />
+          <AssociationSet Name="FK_Attendance_Employee" Association="Self.FK_Attendance_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Attendance" EntitySet="Attendances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Leave_Employee" Association="Self.FK_Leave_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Leave" EntitySet="Leaves" />
+          </AssociationSet>
+          <EntitySet Name="Holidays" EntityType="BIIT_HRModel.Holiday" />
+        </EntityContainer>
+        <EntityType Name="Holiday">
+          <Key>
+            <PropertyRef Name="h_id" />
+          </Key>
+          <Property Name="h_id" Type="Int32" Nullable="false" />
+          <Property Name="h_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="hajj_from" Type="DateTime" Precision="0" />
+          <Property Name="hajj_to" Type="DateTime" Precision="0" />
+          <Property Name="hajj_total" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="hajj" Type="Int32" />
+          <Property Name="EidF" Type="Int32" />
+          <Property Name="EidAdha" Type="Int32" />
+          <Property Name="PakDay" Type="Int32" />
+          <Property Name="AzadiDay" Type="Int32" />
+          <Property Name="eid_from" Type="DateTime" Precision="0" />
+          <Property Name="eid_to" Type="DateTime" Precision="0" />
+          <Property Name="eidAd_from" Type="DateTime" Precision="0" />
+          <Property Name="eidAd_to" Type="DateTime" Precision="0" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BIIT_HRModelStoreContainer" CdmEntityContainer="BIIT_HREntities6">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="BIIT_HRModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+                <ScalarProperty Name="admin_name" ColumnName="admin_name" />
+                <ScalarProperty Name="ad_password" ColumnName="ad_password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Attendances">
+            <EntityTypeMapping TypeName="BIIT_HRModel.Attendance">
+              <MappingFragment StoreEntitySet="Attendance">
+                <ScalarProperty Name="attendance_id" ColumnName="attendance_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="csv" ColumnName="csv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Criteria">
+            <EntityTypeMapping TypeName="BIIT_HRModel.Criterion">
+              <MappingFragment StoreEntitySet="Criteria">
+                <ScalarProperty Name="cri_id" ColumnName="cri_id" />
+                <ScalarProperty Name="cri_total_leave" ColumnName="cri_total_leave" />
+                <ScalarProperty Name="cri_sick_leave" ColumnName="cri_sick_leave" />
+                <ScalarProperty Name="cri_earned_leave" ColumnName="cri_earned_leave" />
+                <ScalarProperty Name="cri_casual_leave" ColumnName="cri_casual_leave" />
+                <ScalarProperty Name="cri_short_leave" ColumnName="cri_short_leave" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="BIIT_HRModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="leave_status" ColumnName="leave_status" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="cnic" ColumnName="cnic" />
+                <ScalarProperty Name="contact_no" ColumnName="contact_no" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="designation" ColumnName="designation" />
+                <ScalarProperty Name="picture" ColumnName="picture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeLeaves">
+            <EntityTypeMapping TypeName="BIIT_HRModel.EmployeeLeave">
+              <MappingFragment StoreEntitySet="EmployeeLeave">
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="total_leaves" ColumnName="total_leaves" />
+                <ScalarProperty Name="sick_leave" ColumnName="sick_leave" />
+                <ScalarProperty Name="earned_leave" ColumnName="earned_leave" />
+                <ScalarProperty Name="casual_leave" ColumnName="casual_leave" />
+                <ScalarProperty Name="short_leave" ColumnName="short_leave" />
+                <ScalarProperty Name="remaining_leaves" ColumnName="remaining_leaves" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hods">
+            <EntityTypeMapping TypeName="BIIT_HRModel.Hod">
+              <MappingFragment StoreEntitySet="Hod">
+                <ScalarProperty Name="hod_id" ColumnName="hod_id" />
+                <ScalarProperty Name="hod_name" ColumnName="hod_name" />
+                <ScalarProperty Name="hod_password" ColumnName="hod_password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Leaves">
+            <EntityTypeMapping TypeName="BIIT_HRModel.Leave">
+              <MappingFragment StoreEntitySet="Leave">
+                <ScalarProperty Name="leave_id" ColumnName="leave_id" />
+                <ScalarProperty Name="leave_type" ColumnName="leave_type" />
+                <ScalarProperty Name="date_from" ColumnName="date_from" />
+                <ScalarProperty Name="date_to" ColumnName="date_to" />
+                <ScalarProperty Name="leave_description" ColumnName="leave_description" />
+                <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+                <ScalarProperty Name="leave_status" ColumnName="leave_status" />
+                <ScalarProperty Name="day_from" ColumnName="day_from" />
+                <ScalarProperty Name="day_to" ColumnName="day_to" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Holidays">
+            <EntityTypeMapping TypeName="BIIT_HRModel.Holiday">
+              <MappingFragment StoreEntitySet="Holiday">
+                <ScalarProperty Name="eidAd_to" ColumnName="eidAd_to" />
+                <ScalarProperty Name="eidAd_from" ColumnName="eidAd_from" />
+                <ScalarProperty Name="eid_to" ColumnName="eid_to" />
+                <ScalarProperty Name="eid_from" ColumnName="eid_from" />
+                <ScalarProperty Name="AzadiDay" ColumnName="AzadiDay" />
+                <ScalarProperty Name="PakDay" ColumnName="PakDay" />
+                <ScalarProperty Name="EidAdha" ColumnName="EidAdha" />
+                <ScalarProperty Name="EidF" ColumnName="EidF" />
+                <ScalarProperty Name="hajj" ColumnName="hajj" />
+                <ScalarProperty Name="hajj_total" ColumnName="hajj_total" />
+                <ScalarProperty Name="hajj_to" ColumnName="hajj_to" />
+                <ScalarProperty Name="hajj_from" ColumnName="hajj_from" />
+                <ScalarProperty Name="h_name" ColumnName="h_name" />
+                <ScalarProperty Name="h_id" ColumnName="h_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

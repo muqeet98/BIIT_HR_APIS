@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BIIT_HRModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="admin_id" />
+    </Key>
+    <Property Name="admin_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="admin_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ad_password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Attendance">
+    <Key>
+      <PropertyRef Name="attendance_id" />
+    </Key>
+    <Property Name="attendance_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="status" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="date" Type="DateTime" Precision="0" />
+    <Property Name="emp_id" Type="Int32" Nullable="false" />
+    <Property Name="csv" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Attendance_Employee" FromRole="Attendance" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Criterion">
+    <Key>
+      <PropertyRef Name="cri_id" />
+    </Key>
+    <Property Name="cri_id" Type="Int32" Nullable="false" />
+    <Property Name="cri_total_leave" Type="Double" />
+    <Property Name="cri_sick_leave" Type="Int32" />
+    <Property Name="cri_earned_leave" Type="Int32" />
+    <Property Name="cri_casual_leave" Type="Int32" />
+    <Property Name="cri_short_leave" Type="Double" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="emp_id" />
+    </Key>
+    <Property Name="emp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="cnic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="contact_no" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="date" Type="DateTime" Precision="0" />
+    <Property Name="designation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Attendances" Relationship="Self.FK_Attendance_Employee" FromRole="Employee" ToRole="Attendance" />
+    <NavigationProperty Name="Leaves" Relationship="Self.FK_Leave_Employee" FromRole="Employee" ToRole="Leave" />
+    <Property Name="leave_status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="EmployeeLeave">
+    <Key>
+      <PropertyRef Name="emp_id" />
+    </Key>
+    <Property Name="emp_id" Type="Int32" Nullable="false" />
+    <Property Name="total_leaves" Type="Double" />
+    <Property Name="sick_leave" Type="Int32" />
+    <Property Name="earned_leave" Type="Int32" />
+    <Property Name="casual_leave" Type="Int32" />
+    <Property Name="short_leave" Type="Double" />
+    <Property Name="remaining_leaves" Type="Double" />
+  </EntityType>
+  <EntityType Name="Hod">
+    <Key>
+      <PropertyRef Name="hod_id" />
+    </Key>
+    <Property Name="hod_id" Type="Int32" Nullable="false" />
+    <Property Name="hod_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="hod_password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Leave">
+    <Key>
+      <PropertyRef Name="leave_id" />
+    </Key>
+    <Property Name="leave_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="leave_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="date_from" Type="DateTime" Precision="0" />
+    <Property Name="date_to" Type="DateTime" Precision="0" />
+    <Property Name="leave_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="emp_id" Type="Int32" Nullable="false" />
+    <Property Name="leave_status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="day_from" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="day_to" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Leave_Employee" FromRole="Leave" ToRole="Employee" />
+  </EntityType>
+  <Association Name="FK_Attendance_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="emp_id" />
+      </Principal>
+      <Dependent Role="Attendance">
+        <PropertyRef Name="emp_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Leave_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Leave" Type="Self.Leave" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="emp_id" />
+      </Principal>
+      <Dependent Role="Leave">
+        <PropertyRef Name="emp_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BIIT_HREntities6" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="Attendances" EntityType="Self.Attendance" />
+    <EntitySet Name="Criteria" EntityType="Self.Criterion" />
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="EmployeeLeaves" EntityType="Self.EmployeeLeave" />
+    <EntitySet Name="Hods" EntityType="Self.Hod" />
+    <EntitySet Name="Leaves" EntityType="Self.Leave" />
+    <AssociationSet Name="FK_Attendance_Employee" Association="Self.FK_Attendance_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Attendance" EntitySet="Attendances" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Leave_Employee" Association="Self.FK_Leave_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Leave" EntitySet="Leaves" />
+    </AssociationSet>
+    <EntitySet Name="Holidays" EntityType="BIIT_HRModel.Holiday" />
+  </EntityContainer>
+  <EntityType Name="Holiday">
+    <Key>
+      <PropertyRef Name="h_id" />
+    </Key>
+    <Property Name="h_id" Type="Int32" Nullable="false" />
+    <Property Name="h_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="hajj_from" Type="DateTime" Precision="0" />
+    <Property Name="hajj_to" Type="DateTime" Precision="0" />
+    <Property Name="hajj_total" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="hajj" Type="Int32" />
+    <Property Name="EidF" Type="Int32" />
+    <Property Name="EidAdha" Type="Int32" />
+    <Property Name="PakDay" Type="Int32" />
+    <Property Name="AzadiDay" Type="Int32" />
+    <Property Name="eid_from" Type="DateTime" Precision="0" />
+    <Property Name="eid_to" Type="DateTime" Precision="0" />
+    <Property Name="eidAd_from" Type="DateTime" Precision="0" />
+    <Property Name="eidAd_to" Type="DateTime" Precision="0" />
+  </EntityType>
+</Schema>

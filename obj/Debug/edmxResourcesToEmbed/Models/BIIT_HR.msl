@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BIIT_HRModelStoreContainer" CdmEntityContainer="BIIT_HREntities6">
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="BIIT_HRModel.Admin">
+        <MappingFragment StoreEntitySet="Admin">
+          <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+          <ScalarProperty Name="admin_name" ColumnName="admin_name" />
+          <ScalarProperty Name="ad_password" ColumnName="ad_password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Attendances">
+      <EntityTypeMapping TypeName="BIIT_HRModel.Attendance">
+        <MappingFragment StoreEntitySet="Attendance">
+          <ScalarProperty Name="attendance_id" ColumnName="attendance_id" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+          <ScalarProperty Name="csv" ColumnName="csv" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Criteria">
+      <EntityTypeMapping TypeName="BIIT_HRModel.Criterion">
+        <MappingFragment StoreEntitySet="Criteria">
+          <ScalarProperty Name="cri_id" ColumnName="cri_id" />
+          <ScalarProperty Name="cri_total_leave" ColumnName="cri_total_leave" />
+          <ScalarProperty Name="cri_sick_leave" ColumnName="cri_sick_leave" />
+          <ScalarProperty Name="cri_earned_leave" ColumnName="cri_earned_leave" />
+          <ScalarProperty Name="cri_casual_leave" ColumnName="cri_casual_leave" />
+          <ScalarProperty Name="cri_short_leave" ColumnName="cri_short_leave" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="BIIT_HRModel.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="leave_status" ColumnName="leave_status" />
+          <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="cnic" ColumnName="cnic" />
+          <ScalarProperty Name="contact_no" ColumnName="contact_no" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="designation" ColumnName="designation" />
+          <ScalarProperty Name="picture" ColumnName="picture" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeLeaves">
+      <EntityTypeMapping TypeName="BIIT_HRModel.EmployeeLeave">
+        <MappingFragment StoreEntitySet="EmployeeLeave">
+          <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+          <ScalarProperty Name="total_leaves" ColumnName="total_leaves" />
+          <ScalarProperty Name="sick_leave" ColumnName="sick_leave" />
+          <ScalarProperty Name="earned_leave" ColumnName="earned_leave" />
+          <ScalarProperty Name="casual_leave" ColumnName="casual_leave" />
+          <ScalarProperty Name="short_leave" ColumnName="short_leave" />
+          <ScalarProperty Name="remaining_leaves" ColumnName="remaining_leaves" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Hods">
+      <EntityTypeMapping TypeName="BIIT_HRModel.Hod">
+        <MappingFragment StoreEntitySet="Hod">
+          <ScalarProperty Name="hod_id" ColumnName="hod_id" />
+          <ScalarProperty Name="hod_name" ColumnName="hod_name" />
+          <ScalarProperty Name="hod_password" ColumnName="hod_password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Leaves">
+      <EntityTypeMapping TypeName="BIIT_HRModel.Leave">
+        <MappingFragment StoreEntitySet="Leave">
+          <ScalarProperty Name="leave_id" ColumnName="leave_id" />
+          <ScalarProperty Name="leave_type" ColumnName="leave_type" />
+          <ScalarProperty Name="date_from" ColumnName="date_from" />
+          <ScalarProperty Name="date_to" ColumnName="date_to" />
+          <ScalarProperty Name="leave_description" ColumnName="leave_description" />
+          <ScalarProperty Name="emp_id" ColumnName="emp_id" />
+          <ScalarProperty Name="leave_status" ColumnName="leave_status" />
+          <ScalarProperty Name="day_from" ColumnName="day_from" />
+          <ScalarProperty Name="day_to" ColumnName="day_to" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Holidays">
+      <EntityTypeMapping TypeName="BIIT_HRModel.Holiday">
+        <MappingFragment StoreEntitySet="Holiday">
+          <ScalarProperty Name="eidAd_to" ColumnName="eidAd_to" />
+          <ScalarProperty Name="eidAd_from" ColumnName="eidAd_from" />
+          <ScalarProperty Name="eid_to" ColumnName="eid_to" />
+          <ScalarProperty Name="eid_from" ColumnName="eid_from" />
+          <ScalarProperty Name="AzadiDay" ColumnName="AzadiDay" />
+          <ScalarProperty Name="PakDay" ColumnName="PakDay" />
+          <ScalarProperty Name="EidAdha" ColumnName="EidAdha" />
+          <ScalarProperty Name="EidF" ColumnName="EidF" />
+          <ScalarProperty Name="hajj" ColumnName="hajj" />
+          <ScalarProperty Name="hajj_total" ColumnName="hajj_total" />
+          <ScalarProperty Name="hajj_to" ColumnName="hajj_to" />
+          <ScalarProperty Name="hajj_from" ColumnName="hajj_from" />
+          <ScalarProperty Name="h_name" ColumnName="h_name" />
+          <ScalarProperty Name="h_id" ColumnName="h_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

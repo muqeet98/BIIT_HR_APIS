@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a88a02429c2441d1a2e8ad2da0d184e5" Name="Diagram1">
+        <EntityTypeShape EntityType="BIIT_HRModel.Admin" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BIIT_HRModel.Attendance" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BIIT_HRModel.Criterion" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BIIT_HRModel.Employee" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BIIT_HRModel.EmployeeLeave" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BIIT_HRModel.Hod" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BIIT_HRModel.Leave" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="BIIT_HRModel.FK_Attendance_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="BIIT_HRModel.FK_Leave_Employee" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BIIT_HRModel.Holiday" Width="1.5" PointX="0.75" PointY="7.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

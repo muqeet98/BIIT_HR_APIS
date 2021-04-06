@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BIIT_HRModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="admin_id" />
+    </Key>
+    <Property Name="admin_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="admin_name" Type="nvarchar" MaxLength="50" />
+    <Property Name="ad_password" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Attendance">
+    <Key>
+      <PropertyRef Name="attendance_id" />
+    </Key>
+    <Property Name="attendance_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="status" Type="text" />
+    <Property Name="date" Type="date" />
+    <Property Name="emp_id" Type="int" Nullable="false" />
+    <Property Name="csv" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Criteria">
+    <Key>
+      <PropertyRef Name="cri_id" />
+    </Key>
+    <Property Name="cri_id" Type="int" Nullable="false" />
+    <Property Name="cri_total_leave" Type="float" />
+    <Property Name="cri_sick_leave" Type="int" />
+    <Property Name="cri_earned_leave" Type="int" />
+    <Property Name="cri_casual_leave" Type="int" />
+    <Property Name="cri_short_leave" Type="float" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="emp_id" />
+    </Key>
+    <Property Name="emp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="cnic" Type="varchar" MaxLength="50" />
+    <Property Name="contact_no" Type="nchar" MaxLength="20" />
+    <Property Name="email" Type="nvarchar" MaxLength="50" />
+    <Property Name="password" Type="nvarchar" MaxLength="50" />
+    <Property Name="date" Type="date" />
+    <Property Name="designation" Type="varchar" MaxLength="50" />
+    <Property Name="picture" Type="varbinary(max)" />
+    <Property Name="leave_status" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="EmployeeLeave">
+    <Key>
+      <PropertyRef Name="emp_id" />
+    </Key>
+    <Property Name="emp_id" Type="int" Nullable="false" />
+    <Property Name="total_leaves" Type="float" />
+    <Property Name="sick_leave" Type="int" />
+    <Property Name="earned_leave" Type="int" />
+    <Property Name="casual_leave" Type="int" />
+    <Property Name="short_leave" Type="float" />
+    <Property Name="remaining_leaves" Type="float" />
+  </EntityType>
+  <EntityType Name="Hod">
+    <Key>
+      <PropertyRef Name="hod_id" />
+    </Key>
+    <Property Name="hod_id" Type="int" Nullable="false" />
+    <Property Name="hod_name" Type="nvarchar" MaxLength="50" />
+    <Property Name="hod_password" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Holiday">
+    <Key>
+      <PropertyRef Name="h_id" />
+    </Key>
+    <Property Name="h_id" Type="int" Nullable="false" />
+    <Property Name="h_name" Type="nvarchar" MaxLength="50" />
+    <Property Name="hajj_from" Type="date" />
+    <Property Name="hajj_to" Type="date" />
+    <Property Name="hajj_total" Type="nchar" MaxLength="10" />
+    <Property Name="hajj" Type="int" />
+    <Property Name="EidF" Type="int" />
+    <Property Name="EidAdha" Type="int" />
+    <Property Name="PakDay" Type="int" />
+    <Property Name="AzadiDay" Type="int" />
+    <Property Name="eid_from" Type="date" />
+    <Property Name="eid_to" Type="date" />
+    <Property Name="eidAd_from" Type="date" />
+    <Property Name="eidAd_to" Type="date" />
+  </EntityType>
+  <EntityType Name="Leave">
+    <Key>
+      <PropertyRef Name="leave_id" />
+    </Key>
+    <Property Name="leave_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="leave_type" Type="nvarchar" MaxLength="50" />
+    <Property Name="date_from" Type="date" />
+    <Property Name="date_to" Type="date" />
+    <Property Name="leave_description" Type="nvarchar(max)" />
+    <Property Name="emp_id" Type="int" Nullable="false" />
+    <Property Name="leave_status" Type="nchar" MaxLength="10" />
+    <Property Name="day_from" Type="nvarchar" MaxLength="50" />
+    <Property Name="day_to" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Attendance_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="emp_id" />
+      </Principal>
+      <Dependent Role="Attendance">
+        <PropertyRef Name="emp_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Leave_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Leave" Type="Self.Leave" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="emp_id" />
+      </Principal>
+      <Dependent Role="Leave">
+        <PropertyRef Name="emp_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BIIT_HRModelStoreContainer">
+    <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Criteria" EntityType="Self.Criteria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeLeave" EntityType="Self.EmployeeLeave" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Hod" EntityType="Self.Hod" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Holiday" EntityType="Self.Holiday" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Leave" EntityType="Self.Leave" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Attendance_Employee" Association="Self.FK_Attendance_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Attendance" EntitySet="Attendance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Leave_Employee" Association="Self.FK_Leave_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Leave" EntitySet="Leave" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
